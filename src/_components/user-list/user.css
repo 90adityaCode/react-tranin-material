@@ -1,0 +1,10 @@
+ul.demo {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user{
+  margin: 100px;
+    padding: 46px;
+} 

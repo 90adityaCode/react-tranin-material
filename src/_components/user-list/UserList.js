@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import UserDetail from './UserDetails';
 // there 3 ways to create/perform event in react
 //a. bind method b. public class field, callback
 class UserList extends Component {
@@ -30,20 +31,21 @@ class UserList extends Component {
           avatar:
             "https://s3.amazonaws.com/uifaces/faces/twitter/vivekprvr/128.jpg"
         }
-      ]
+      ],
+      userDetail: {}
     };
 
     this.handleUserEvent = this.handleUserEvent.bind(this); 
   }
 
-  handleUserEvent(e, id) {
-    alert(id);
+  handleUserEvent(e, val) {
+    this.setState({userDetail: val})
   }
 
   list = () => {
     const List = this.state.data.map((val, key) => {
       return (
-        <tr key={val.id}  onClick={this.handleUserEvent.bind(val.id, this)}>
+        <tr key={val.id}  onClick={(e)=>{this.handleUserEvent(e, val)}}>
           <td>
             <img src={val.avatar} style={{ width: "15%" }} />
           </td>
@@ -57,10 +59,13 @@ class UserList extends Component {
   };
 
   render() {
-    return (
-      <>
+    const userDetail = this.state.userDetail; 
+    return ( 
         <div className="container">
-          <table striped bordered hover size="sm" className="table">
+         {!userDetail.id ?
+        <> 
+        <h4><center>User List</center></h4>
+          <table size="sm" className="table">
             <thead>
               <tr>
                 <th>Profile</th>
@@ -71,8 +76,10 @@ class UserList extends Component {
             </thead>
             <tbody>{this.list()}</tbody>
           </table>
-        </div>
-      </>
+          </> :
+           <UserDetail data= {userDetail}/>
+           }
+        </div> 
     );
   }
 }
