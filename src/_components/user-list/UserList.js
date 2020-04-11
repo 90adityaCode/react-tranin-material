@@ -33,7 +33,7 @@ class UserList extends Component {
       ]
     };
 
-    this.handleUserEvent = this.handleUserEvent.bind(this);
+    this.handleUserEvent = this.handleUserEvent.bind(this); 
   }
 
   handleUserEvent(e, id) {
