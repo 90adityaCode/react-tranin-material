@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import UserDetail from "./UserDetails"; 
-import userservi
+import UserDetail from "./UserDetails";
+import UserService from "../../_services/user-list-service";
 class UserList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       trainer: "",
-      data: [
+      userList: [
         {
           id: 1,
           email: "michael.lawson@reqres.in",
@@ -43,7 +43,7 @@ class UserList extends Component {
   }
 
   list = () => {
-    const List = this.state.data.map((val, key) => {
+    const List = this.state.userList.map((val, key) => {
       return (
         <tr
           key={val.id}
@@ -101,7 +101,10 @@ class UserList extends Component {
   }
 
   componentDidMount() {
-   
+    const _userService = new UserService();
+    _userService.fetchUser().then(userList => {
+      console.log("userList",userList );
+    });
   }
 }
 
