@@ -1,6 +1,6 @@
 import React from "react";
 import "./user.css";
-
+import Blog from '../blog/Blog';
 const UserDetail = props => {
   console.log(props);
   const user = props.data;
@@ -27,14 +27,7 @@ const UserDetail = props => {
           </ul>
           <hr className="d-sm-none" />
         </div>
-        <div className="col-sm-9">
-            
-          <br />
-          <h2>Latest Blog</h2>
-          <h5>Title description, April 2, 2020</h5> 
-          <p>Some text..</p>
-          <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-        </div>
+       <Blog />
       </div>
     </div>  
   );
