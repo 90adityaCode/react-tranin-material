@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import UserDetail from './UserDetails';
-// there 3 ways to create/perform event in react
-//a. bind method b. public class field, callback
+import UserDetail from "./UserDetails"; 
+import userservi
 class UserList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      trainer: "",
       data: [
         {
           id: 1,
@@ -35,17 +35,22 @@ class UserList extends Component {
       userDetail: {}
     };
 
-    this.handleUserEvent = this.handleUserEvent.bind(this); 
+    this.handleUserEvent = this.handleUserEvent.bind(this);
   }
 
   handleUserEvent(e, val) {
-    this.setState({userDetail: val})
+    this.setState({ userDetail: val });
   }
 
   list = () => {
     const List = this.state.data.map((val, key) => {
       return (
-        <tr key={val.id}  onClick={(e)=>{this.handleUserEvent(e, val)}}>
+        <tr
+          key={val.id}
+          onClick={e => {
+            this.handleUserEvent(e, val);
+          }}
+        >
           <td>
             <img src={val.avatar} style={{ width: "15%" }} />
           </td>
@@ -59,28 +64,44 @@ class UserList extends Component {
   };
 
   render() {
-    const userDetail = this.state.userDetail; 
-    return ( 
-        <div className="container">
-         {!userDetail.id ?
-        <> 
-        <h4><center>User List</center></h4>
-          <table size="sm" className="table">
-            <thead>
-              <tr>
-                <th>Profile</th>
-                <th>Email</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-              </tr>
-            </thead>
-            <tbody>{this.list()}</tbody>
-          </table>
-          </> :
-           <UserDetail data= {userDetail}/>
-           }
-        </div> 
+    const userDetail = this.state.userDetail;
+    return (
+      <div className="container">
+        {!userDetail.id ? (
+          <>
+            <h4>
+              <center>User List</center>
+            </h4>
+            <table size="sm" className="table">
+              <thead>
+                <tr>
+                  <th>Profile</th>
+                  <th>Email</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                </tr>
+              </thead>
+              <tbody>{this.list()}</tbody>
+            </table>
+          </>
+        ) : (
+          <UserDetail data={userDetail} />
+        )}
+      </div>
     );
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (state.trainer !== props.trainer) {
+      return {
+        trainer: props.trainer
+      };
+    }
+    return null;
+  }
+
+  componentDidMount() {
+   
   }
 }
 
