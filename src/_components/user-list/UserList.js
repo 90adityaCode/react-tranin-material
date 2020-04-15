@@ -7,10 +7,47 @@ class UserList extends Component {
     this.state = {
       trainer: "",
       userList: [],
-      userDetail: {}
+      userDetail: {},
+      count: 0
     };
 
     this.handleUserEvent = this.handleUserEvent.bind(this);
+  }
+
+
+  render() {
+    const userDetail = this.state.userDetail;
+    console.log('render userList')
+    return (
+      <div className="container">
+        <span style={{'float':'right'}} onClick={this.addUserHandler}>+</span>
+        New User {this.state.count}
+        {!userDetail.id ? (
+          <>
+            <h4>
+              <center>User List</center>
+            </h4>
+            <table size="sm" className="table">
+              <thead>
+                <tr>
+                  <th>Profile</th>
+                  <th>Email</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                </tr>
+              </thead>
+              <tbody>{this.list()}</tbody>
+            </table>
+          </>
+        ) : (
+          <UserDetail data={userDetail} />
+        )}
+      </div>
+    );
+  }
+  
+  addUserHandler = ()=> {
+    this.setState({ count: this.state.count + 1 });
   }
 
   handleUserEvent(e, val) {
@@ -38,35 +75,10 @@ class UserList extends Component {
     return List;
   };
 
-  render() {
-    const userDetail = this.state.userDetail;
-    return (
-      <div className="container">
-        {!userDetail.id ? (
-          <>
-            <h4>
-              <center>User List</center>
-            </h4>
-            <table size="sm" className="table">
-              <thead>
-                <tr>
-                  <th>Profile</th>
-                  <th>Email</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                </tr>
-              </thead>
-              <tbody>{this.list()}</tbody>
-            </table>
-          </>
-        ) : (
-          <UserDetail data={userDetail} />
-        )}
-      </div>
-    );
-  }
-
+  //Component Mounting Hooks Start
+  // Sequence -> constructor-> getDerivedStateFromProps -> rneder-> componentDidMount
   static getDerivedStateFromProps(props, state) {
+    console.log('getDerivedStateFromProps  - userList')
     if (state.trainer !== props.trainer) {
       return {
         trainer: props.trainer
@@ -76,11 +88,13 @@ class UserList extends Component {
   }
 
   componentDidMount() {
+    console.log('componentDidMount - userList')
     const _userService = new UserService();
     _userService.fetchUser().then(userList => {
       this.setState({userList: userList.data})
     });
   }
+
 }
 
 export default UserList;
