@@ -1,8 +1,7 @@
 import React from "react";
 import "./user.css";
 import Blog from '../blog/Blog';
-const UserDetail = props => {
-  console.log(props);
+const UserDetail = props => { 
   const user = props.data;
   return (
 
