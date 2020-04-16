@@ -70,16 +70,18 @@ class UserDetail extends Component {
     return false;
   }
    
-  componentDidUpdate() {
+  componentDidUpdate(props, state, snapshotVal) {
     console.log('componentDidUpdate - UserDetail');
   }
   
   getSnapshotBeforeUpdate(){
    console.log('getSnapshotBeforeUpdate')
+
   }
-  componentWillUnmount(){
-    console.log('componentWillUnmount')
-  }
+ 
+  // componentWillUnmount(){
+  //   console.log('componentWillUnmount')
+  // }
 }
 
 export default UserDetail;
