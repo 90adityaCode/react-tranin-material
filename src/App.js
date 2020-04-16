@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import UserList from './_components/user-list/UserList';
+import Routers from './_router/Router';
 class App extends Component{
   constructor(props){
     super(props);
@@ -7,7 +8,7 @@ class App extends Component{
   }
   render(){
     return (
-      <UserList />
+      <Routers />
     )
   } 
   
